@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Login - NariApp</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
+
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            /* background: linear-gradient(-45deg, #0d6efd, #6610f2, #6f42c1, #20c997); */
+            background: linear-gradient(-45deg, 
+                    #0d6efd, 
+                    #6610f2, 
+                    #6f42c1, 
+                    #20c997,
+                    #d63384,
+                    #fd7e14,
+                    #ffc107,
+                    #198754,
+                    #0dcaf0,
+                    #6f42c1
+                );
+            background-size: 400% 400%;
+            animation: gradientBG 75s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            color: #fff;
+            width: 100%;
+            height: 100%;
+            max-height: 400px;
+            max-width: 600px;
+            animation: fadeIn 1s ease;
+        }
+
+        .login-card input {
+            background-color: rgba(255, 255, 255, 0.25);
+            border: none;
+            color: #fff;
+        }
+
+        .login-card input::placeholder {
+            color: #eee;
+        }
+
+        .login-card .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+            border: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dna-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.15;
+            z-index: 0;
+            animation: rotate 40s linear infinite;
+        }
+
+        .dna-bg img {
+            height: 105vh;
+        }
+
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @media (max-width: 576px) {
+        .login-card {
+            max-width: 90%;
+            height: auto;
+            max-height: none;
+            padding: 1.5rem 1rem;
+            border-radius: 10px;
+            margin: 1rem;
+        }
+
+        .login-card h3 {
+            font-size: 1.5rem;
+        }
+
+        .form-floating label {
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            font-size: 0.95rem;
+            padding: 0.75rem 0.75rem;
+        }
+
+        .btn {
+            font-size: 1rem;
+            padding: 0.6rem 1rem;
+        }
+
+        .dna-bg img {
+            height: 80vh;
+        }
+    }
+
+    </style>
+</head>
+
+<body>
+    <div id="tsparticles"></div>
+    <div class="dna-bg">
+        <img src="{% static 'images/dna_spiral.png' %}" alt="DNA Spiral">
+    </div>
+    <div class="login-card">
+        <h3 class="text-center mb-4">Bienvenido</h3>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input class="form-control" id="username" name="username" type="text" placeholder="Username" required />
+                <label for="username">Nombre de usuario</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" id="password" name="password" type="password" placeholder="Password" required />
+                <label for="password">Contraseña</label>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <a class="small text-white" href="#">Olvidaste tu contraseña?</a>
+            </div>
+            <div class="d-grid">
+                <button class="btn btn-primary btn-block" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
