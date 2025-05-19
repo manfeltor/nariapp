@@ -1,11 +1,19 @@
 from django.db import models
 from cultivationapp.models.room import PlantRoom
 from cultivationapp.models.meta import Species, Breed, Sex, PlantStatus
+from cultivationapp.helpers.img_handler import plant_image_upload_path
 
 class Plant(models.Model):
     code = models.AutoField(primary_key=True)
     identificator = models.CharField(max_length=4, default="0001")
     name = models.CharField(max_length=100)
+    image = models.ImageField(
+        upload_to=plant_image_upload_path,
+        blank=True,
+        null=True,
+        verbose_name="Plant image"
+    )
+
     
     sex = models.ForeignKey(Sex, on_delete=models.PROTECT)
     species = models.ForeignKey(Species, on_delete=models.PROTECT)
@@ -38,6 +46,26 @@ class Plant(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.grid_label})"
+    
+    def as_dict(self):
+        return {
+            "code": self.code,
+            "identificator": self.identificator,
+            "name": self.name,
+            "sex": self.sex.name,
+            "species": self.species.name,
+            "breed": self.breed.name,
+            "status": self.status.name,
+            "generation": self.generation,
+            "room": self.room.name,
+            "grid_position": self.grid_label,
+            "ruleset_tag": self.ruleset_tag.name if self.ruleset_tag else None,
+            "created_by": self.created_by_snapshot,
+            "created_at": str(self.created_at),
+            "mother_code": self.mother_code,
+            "father_code": self.father_code,
+        }
+
 
     @property
     def grid_label(self):

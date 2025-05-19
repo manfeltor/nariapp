@@ -45,6 +45,7 @@ class RoomCharacteristicType(models.Model):
         return self.name
 
     class Meta:
+        unique_together = ('type', 'value')
         ordering = ['name']
         verbose_name_plural = "Room Characteristic Types"
 

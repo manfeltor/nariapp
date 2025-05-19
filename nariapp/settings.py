@@ -85,6 +85,7 @@ DATABASES = {
         'PASSWORD': DB_PASS,
         'HOST': DB_HOST,
         'PORT': DB_PORT,
+        'CONN_MAX_AGE': 60,
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
             'charset': 'utf8mb4',
@@ -138,7 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
     # os.path.join(BASE_DIR, 'appinfo/templates/static'),
-    os.path.join(BASE_DIR, r'templates'),
+    # os.path.join(BASE_DIR, r'templates'),
     os.path.join(BASE_DIR, r'static'),
     # os.path.join(BASE_DIR, r'media'),    
 ]
@@ -146,3 +147,5 @@ STATICFILES_DIRS = [
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/base'
 LOGOUT_REDIRECT_URL = 'login'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

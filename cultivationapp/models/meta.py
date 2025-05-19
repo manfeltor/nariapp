@@ -63,7 +63,6 @@ class PlantPhase(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name_plural = 'Plant Phases'
 
     def __str__(self):
         return self.name
