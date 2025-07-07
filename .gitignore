@@ -1,1 +1,61 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django migrations
+*/migrations/__pycache__/
+*.sqlite3
+
+# VSCode / JetBrains / IDEs
+.vscode/
+.idea/
+
+# Virtualenv
+env/
+venv/
+ENV/
+.venv/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Media / Uploaded files (optional: useful in dev)
+media/
+*.bak
+
+# Django cache files
+*.cache
+cache/
+django_cache/
+
+# Coverage / test / profiling
+htmlcov/
+.tox/
+.coverage
+coverage.xml
+*.cover
+.pytest_cache/
+
+# Static builds
+staticfiles/
+static/
+
+# Env settings
 .env
+.env.*
+
+# Node stuff
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
