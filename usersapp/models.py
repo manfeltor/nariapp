@@ -1,25 +1,30 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
-# CustomUser model
-class CustomUser(AbstractUser):
-    MANAGER = 'Manager'
-    EMPLOYEE = 'Empleado'
-    ADMIN = 'Admin'
-
-    ROLE_CHOICES = [
-        (MANAGER, 'Manager'),
-        (EMPLOYEE, 'Empleado'),
-        (ADMIN, 'Admin'),
-    ]
-
+class Company(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(unique=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default=EMPLOYEE)
+    mail = models.EmailField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+    
+
+class CompanyScopedModel(models.Model):
+    company = models.ForeignKey(
+        'Company',
+        on_delete=models.CASCADE,
+        related_name='%(class)ss'
+    )
+
+    class Meta:
+        abstract = True
+
+
+class CustomUser(AbstractUser):
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    company = models.ForeignKey(Company, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.username
-
-    @property
-    def is_management(self):
-        return self.role in {self.MANAGER, self.ADMIN}

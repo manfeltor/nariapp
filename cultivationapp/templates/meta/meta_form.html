@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load form_extras %}
+{% block Canvas %}
+<div class="container-fluid">
+  <div class="mx-auto" style="max-width: 700px;">
+    <h1 class="h3 mb-4 text-gray-800"> {{ action|title }} {{ model_name }}</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div class="form-group mb-2">
+                    <label for="{{ field.id_for_label }}" class="font-weight-bold">{{ field.label }}</label>
+                    {{ field|add_class:"form-control" }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="btn btn-success me-2">Guardar</button>
+                    <a href="{% url 'meta-list' model_name=model_name %}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

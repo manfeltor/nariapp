@@ -2,8 +2,9 @@ from django.db import models
 from cultivationapp.models.room import PlantRoom
 from cultivationapp.models.meta import Species, Breed, Sex, PlantStatus
 from cultivationapp.helpers.img_handler import plant_image_upload_path
+from usersapp.models import CompanyScopedModel
 
-class Plant(models.Model):
+class Plant(CompanyScopedModel):
     code = models.AutoField(primary_key=True)
     identificator = models.CharField(max_length=4, default="0001")
     name = models.CharField(max_length=100)
@@ -74,13 +75,14 @@ class Plant(models.Model):
         return f"{col_label}{row_label}"
 
 
-class PlantCharacteristicType(models.Model):
+class PlantCharacteristicType(CompanyScopedModel):
     name = models.CharField(max_length=100, unique=True)
     unit = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
         ordering = ['name']
         verbose_name_plural = "Plant Characteristic Types"
+        unique_together = ('company', 'name')
 
     def __str__(self):
         return self.name

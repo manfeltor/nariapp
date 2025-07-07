@@ -1,7 +1,8 @@
 from django.db import models
+from usersapp.models import CompanyScopedModel
 
 
-class PlantEventLog(models.Model):
+class PlantEventLog(CompanyScopedModel):
     # Flat log metadata
     plant_code = models.PositiveIntegerField()
     plant_identificator = models.CharField(max_length=10)
@@ -29,7 +30,7 @@ class PlantEventLog(models.Model):
         return f"{self.plant_name} - {self.event_type_name} @ {self.occurred_at}"
 
 
-class PlantStateLog(models.Model):
+class PlantStateLog(CompanyScopedModel):
     plant_code = models.PositiveIntegerField()
     identificator = models.CharField(max_length=10)
     change_type = models.CharField(max_length=100)  # e.g. "created", "transplanted"
@@ -48,7 +49,7 @@ class PlantStateLog(models.Model):
         return f"{self.change_type} - {self.identificator} ({self.plant_code})"
 
 
-class RoomStateLog(models.Model):
+class RoomStateLog(CompanyScopedModel):
     room_name = models.CharField(max_length=100)
     change_type = models.CharField(max_length=100)  # e.g. "resized", "climate set"
 

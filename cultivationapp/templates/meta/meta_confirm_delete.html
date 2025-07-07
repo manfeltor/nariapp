@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block Canvas %}
+<div class="container mt-5">
+  <h2>Eliminar {{ model_name|title }}</h2>
+  <p>¿Estás seguro que deseas eliminar <strong>{{ object.name }}</strong>?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a href="{% url 'meta-list' model_name=model_name %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

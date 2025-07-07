@@ -1,5 +1,5 @@
 from django import forms
-from .models import PlantRoom
+from ..models import PlantRoom
 
 class PlantRoomForm(forms.ModelForm):
     class Meta:

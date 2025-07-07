@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import roomsList, create_room_view
+from ..views.rooms import roomsList, create_room_view
 
 
 urlpatterns = [
